@@ -1,0 +1,1 @@
+{"model_name": "logistic_regression", "feature_columns": ["Time_spent_Alone", "Stage_fear", "Social_event_attendance", "Going_outside", "Drained_after_socializing", "Friends_circle_size", "Post_frequency"], "target_column": "Personality", "label_mapping": {"extrovert": 1, "introvert": 0}, "classes_order": [0, 1]}

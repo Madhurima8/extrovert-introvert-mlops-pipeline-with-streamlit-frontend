@@ -4,9 +4,9 @@ import pandas as pd
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-MODEL_PATH = ROOT / "model" / "classifier.joblib"
-META_PATH = ROOT / "model" / "model_meta.json"
-INFER_LOG = ROOT / "log" / "inference_log.jsonl"
+MODEL_PATH = ROOT / "models" / "classifier.joblib"
+META_PATH = ROOT / "models" / "model_meta.json"
+INFER_LOG = ROOT / "logs" / "inference_log.jsonl"
 INFER_LOG.parent.mkdir(parents=True, exist_ok=True)
 
 class ModelInference:
@@ -66,4 +66,32 @@ def log_inference(log_entry: dict[str, Any]):
     with open(INFER_LOG, "a", encoding="utf-8") as f:
         f.write(json.dumps(log_entry) + "\n")
 
-        
+_singleton = None
+def get_predictor() -> ModelInference:
+    global _singleton
+    if _singleton is None:
+        _singleton = ModelInference()
+    return _singleton
+
+def predict_with_metrics(payload: dict[str, Any]) -> dict[str, Any]:
+    """
+    Wrapper function to get a singleton ModelInference instance and make predictions.
+    Also logs inference time and input shape to INFER_LOG.
+    """
+    t0 = time.time()
+    success, err = True, None
+    try:
+        result = get_predictor().predict(payload)
+        return result
+    except Exception as e:
+        success, err = False, str(e)
+        raise
+    finally:
+        latency_ms = (time.time() - t0) * 1000.0
+        log_inference({
+            "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "success": success,
+            "error": err,
+            "latency_ms": round(latency_ms, 2),
+            "payload_keys": sorted(list(payload.keys()))
+        })

@@ -14,9 +14,9 @@ import time, json, joblib
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "personality_dataset.csv"
-MODEL_DIR = ROOT / "model"
-LOG_DIR = ROOT / "log"
-TRAIN_LOG = LOG_DIR / "train_metrics.jsonl"
+MODEL_DIR = ROOT / "models"
+LOG_DIR = ROOT / "logs"
+TRAIN_LOG = LOG_DIR / "train_eval_metrics.jsonl"
 META_PATH = MODEL_DIR / "model_meta.json"
 
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
@@ -141,7 +141,7 @@ def main():
         X_test, y_test_raw, test_size=0.5, stratify=y_test_raw, random_state=42
     )
     y_train, label_map = binarize_labels(pd.Series(y_train_raw))
-    y_eval = pd.Series(y_eval_raw).map(label_map).values
+    y_eval = pd.Series(y_eval_raw).astype(str).str.lower().map(label_map).values
     pre = build_preprocessor(X_train)
 
     models = {
@@ -156,7 +156,7 @@ def main():
             subsample=0.9, colsample_bytree=0.9, random_state=42, n_jobs=-1)
         
     best_name, best_f1, best_pipeline = None, -1, None
-
+    logs = []
     for name, model in models.items():
         pipeline = Pipeline([
             ("preprocessor", pre),
@@ -185,15 +185,18 @@ def main():
             "n_train": int(len(X_train)),
             "n_test": int(len(X_eval)),    
         }
+        logs.append(log_entry)
 
-        with open(TRAIN_LOG, "a", encoding="utf-8") as f:
-            f.write(json.dumps(log_entry) + "\n")
+        #with open(TRAIN_LOG, "a", encoding="utf-8") as f:
+            # f.write(json.dumps(log_entry) + "\n")
         
         joblib.dump(pipeline, MODEL_DIR / f"{name}.joblib")
 
         if metrics_eval["f1"] > best_f1:
             best_name, best_f1, best_pipeline = name, metrics_eval["f1"], pipeline
 
+    with open(TRAIN_LOG.with_suffix(".json"), "w", encoding="utf-8") as f:
+        json.dump(logs, f, indent=2)
     joblib.dump(best_pipeline, MODEL_DIR / "classifier.joblib")
 
     meta_data = {
