@@ -1,6 +1,6 @@
-from typing import Dict, Any
+from typing import Any
 from fastapi import FastAPI
-from src.service import predict_with_metrics
+from src.model_inference import predict_with_metrics
 
 app = FastAPI(title="Extrovert vs Introvert Classifier", version="1.0.0")
 
@@ -9,7 +9,7 @@ def health():
     return {"status": "ok"}
 
 @app.post("/predict")
-def predict(payload: Dict[str, Any]):
+def predict(payload: dict[str, Any]):
     """
     Send JSON with keys matching your CSV feature columns.
     Example:
