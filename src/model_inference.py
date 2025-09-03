@@ -41,7 +41,7 @@ class ModelInference:
     def predict(self, features: dict[str, Any]) -> dict[str, Any]:
         """
         Predict the class labels for the input DataFrame X.
-        Logs inference time and input shape to INFER_LOG.
+        Logs prediction details to INFER_LOG.
         """
         X = self.payload_to_df(features)
         if hasattr(self.pipeline[-1], "predict_proba"):
@@ -76,7 +76,7 @@ def get_predictor() -> ModelInference:
 def predict_with_metrics(payload: dict[str, Any]) -> dict[str, Any]:
     """
     Wrapper function to get a singleton ModelInference instance and make predictions.
-    Also logs inference time and input shape to INFER_LOG.
+    Also logs inference latency and success status to INFER_LOG.
     """
     t0 = time.time()
     success, err = True, None
@@ -93,5 +93,10 @@ def predict_with_metrics(payload: dict[str, Any]) -> dict[str, Any]:
             "success": success,
             "error": err,
             "latency_ms": round(latency_ms, 2),
+
+            "model": result.get("model_name", "unknown"),
+            "prediction": result.get("predicted_label"), 
+            "probability": round(result["predicted_proba"], 3) if result.get("predicted_proba") is not None else None,
+            "input_features": payload,
             "payload_keys": sorted(list(payload.keys()))
         })

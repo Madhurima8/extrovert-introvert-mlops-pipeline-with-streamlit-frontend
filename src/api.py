@@ -1,22 +1,29 @@
 from typing import Any
 from fastapi import FastAPI
 from src.model_inference import predict_with_metrics
+from src.schemas import PersonalityFeatures
 
+# Initialize FastAPI app
 app = FastAPI(title="Extrovert vs Introvert Classifier", version="1.0.0")
 
-@app.get("/healthz")
+# Health check endpoint
+@app.get("/health")
 def health():
     return {"status": "ok"}
 
+# Prediction endpoint
 @app.post("/predict")
-def predict(payload: dict[str, Any]):
-    """
-    Send JSON with keys matching your CSV feature columns.
-    Example:
-    {
-      "Social_Media_Usage": "Often",
-      "Likes_Parties": "Yes",
-      "Prefers_Solo_Activities": "No"
-    }
-    """
-    return predict_with_metrics(payload)
+# def predict(payload: dict[str, Any]):
+def predict(payload: PersonalityFeatures):
+
+    # """
+    # Send JSON with keys matching your CSV feature columns.
+    # Example:
+    # {
+    #   "Social_Media_Usage": "Often",
+    #   "Likes_Parties": "Yes",
+    #   "Prefers_Solo_Activities": "No"
+    # }
+    # """
+    # return predict_with_metrics(payload)
+    return predict_with_metrics(payload.dict())
