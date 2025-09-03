@@ -6,6 +6,7 @@ This repository implements a complete MLOps pipeline for a binary classification
 
 ## 📁 Folder Structure
 
+```bash
 extrovert-mlops-pipeline/
 ├── data/                          # Raw input dataset (.csv)
 ├── logs/                          # Training and inference logs
@@ -31,14 +32,14 @@ extrovert-mlops-pipeline/
 ## 🔍 Task Overview
 
 * **Goal**: Classify user personality as `extrovert` or `introvert`.
-* **Dataset**: `personality_dataset.csv` (https://www.kaggle.com/datasets/rakeshkapilavai/extrovert-vs-introvert-behavior-data) with behavioral traits as features.
+* **Dataset**: Cleaned version of `personality_dataset.csv` (https://www.kaggle.com/datasets/rakeshkapilavai/extrovert-vs-introvert-behavior-data) with behavioral traits as features.
 * **Problem Type**: Binary Classification
 * **Model Selection**: Trained and evaluated multiple models:
 
   * Logistic Regression
   * Random Forest
   * Gradient Boosting
-  * XGBoost (if available)
+  * (Optionally) XGBoost (if available)
 * **Metrics Logged**: Accuracy, Precision, Recall, F1-score, ROC AUC
 
 ---
@@ -47,15 +48,20 @@ extrovert-mlops-pipeline/
 
 ### 1. 📦 Install dependencies
 
+```bash
 # Create virtual env
 conda create -n extrovert-mlops python=3.11 -y
 conda activate extrovert-mlops
 
 # Install dependencies
 pip install -r requirements.txt
+```
 
 ### 2. 🏋️‍♀️ Train the Model
+
+```bash
 python src/model_training.py
+```
 
 This:
 
@@ -66,11 +72,16 @@ This:
 * Stores metadata like label mapping and features
 
 ### 3. 🚀 Launch the API
+
+```bash
 uvicorn src.api:app --reload
+```
 
 Visit Swagger UI at: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 Test with sample payload like:
+
+```json
 {
   "Time_spent_Alone": "Often",
   "Stage_fear": "Yes",
@@ -80,20 +91,31 @@ Test with sample payload like:
   "Friends_circle_size": "Small",
   "Post_frequency": "Rarely"
 }
+```
 
 ### 4. 🧪 Simulate Batch Inference
 
+```bash
 python src/simulate_batch_inference.py
+```
 
 Runs inference on 5 random samples and prints prediction output.
+
+---
 
 ## 🐳 Docker Usage
 
 ### Build Image
+
+```bash
 docker build -t extrovert-mlops .
+```
 
 ### Run Container
+
+```bash
 docker run -p 8000:8000 extrovert-mlops
+```
 
 Then access: [http://localhost:8000/docs](http://localhost:8000/docs)
 
