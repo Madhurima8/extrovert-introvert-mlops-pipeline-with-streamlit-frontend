@@ -74,7 +74,7 @@ This:
 ### 3. 🚀 Launch the API
 
 ```bash
-uvicorn src.api:app --reload
+uvicorn src.api:app --host 0.0.0.0 --port 8080
 ```
 
 Visit Swagger UI at: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
