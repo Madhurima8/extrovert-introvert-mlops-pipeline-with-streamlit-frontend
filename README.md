@@ -32,7 +32,7 @@ extrovert-mlops-pipeline/
 ## 🔍 Task Overview
 
 * **Goal**: Classify user personality as `extrovert` or `introvert`.
-* **Dataset**: Cleaned version of `personality_dataset.csv` (https://www.kaggle.com/datasets/rakeshkapilavai/extrovert-vs-introvert-behavior-data) with behavioral traits as features.
+* **Dataset**: Cleaned version of `personality_dataset.csv` with behavioral traits as features.
 * **Problem Type**: Binary Classification
 * **Model Selection**: Trained and evaluated multiple models:
 
@@ -83,13 +83,13 @@ Test with sample payload like:
 
 ```json
 {
-  "Time_spent_Alone": "Often",
+  "Time_spent_Alone": "11.0",
   "Stage_fear": "Yes",
-  "Social_event_attendance": "Sometimes",
-  "Going_outside": "Rarely",
+  "Social_event_attendance": "0.0",
+  "Going_outside": "2.0",
   "Drained_after_socializing": "Yes",
-  "Friends_circle_size": "Small",
-  "Post_frequency": "Rarely"
+  "Friends_circle_size": "4.0",
+  "Post_frequency": "2.0"
 }
 ```
 
@@ -168,8 +168,6 @@ If developed into a production-grade system, we could expand it with:
 ## 📎 Resources
 
 * [Dataset (Kaggle)](https://www.kaggle.com/datasets/rakeshkapilavai/extrovert-vs-introvert-behavior-data)
-* [FastAPI Docs](https://fastapi.tiangolo.com/)
-* [Docker Docs](https://docs.docker.com/)
 
 ---
 
