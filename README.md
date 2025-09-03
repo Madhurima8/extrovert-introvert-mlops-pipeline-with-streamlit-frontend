@@ -127,6 +127,7 @@ Then access: [http://localhost:8000/docs](http://localhost:8000/docs)
 
   * Accuracy, Precision, Recall, F1, ROC AUC (train & eval splits)
   * `logs/train_eval_metrics.json`
+  * `logs/train_eval_metrics_summary.csv`(for better readability and comparison of the models'performance)
 * During **inference**:
 
   * Timestamp, latency, model name, input payload keys, prediction
@@ -163,12 +164,3 @@ If developed into a production-grade system, we could expand it with:
 
 **Madhurima Khamroy** — Extrovert vs. Introvert MLOps Pipeline
 
----
-
-## 📎 Resources
-
-* [Dataset (Kaggle)](https://www.kaggle.com/datasets/rakeshkapilavai/extrovert-vs-introvert-behavior-data)
-
----
-
-> For any queries, suggestions or improvements, feel free to contribute or reach out!
