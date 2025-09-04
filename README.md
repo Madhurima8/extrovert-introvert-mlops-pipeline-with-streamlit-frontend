@@ -141,17 +141,64 @@ If developed into a production-grade system, we could expand it with:
 
 ### 🔍 Monitoring
 
-* Track model drift / data distribution changes
-* Visualize prediction confidence / input volume
+To ensure model performance and reliability in production, consider implementing the following:
+
+- **Input Distribution Monitoring**
+  - Track changes in input feature distributions over time to detect data drift.
+  - Tools: [Evidently](https://evidentlyai.com/), Prometheus + Grafana, custom Python scripts.
+
+- **Prediction Logging**
+  - Log inputs, outputs, latency, and model confidence scores for every inference.
+  - Store logs in structured format (e.g., JSONL or database like PostgreSQL).
+  - Tools: Python logging, ELK Stack (Elasticsearch, Logstash, Kibana).
+
+- **Performance Dashboard**
+  - Visualize key metrics like:
+    - Prediction volume per hour/day
+    - Inference latency
+    - Confidence score distributions
+    - Error trends (when true labels are available)
+  - Tools: Grafana, Streamlit, Power BI, Metabase.
+
+- **Alerting**
+  - Trigger alerts on anomalies in:
+    - Prediction confidence drift
+    - Latency spikes or system failures
+    - Unexpected input patterns
+  - Tools: Prometheus Alertmanager, Sentry, custom Slack/email alerts.
+
+---
 
 ### 🔄 Auto-Retraining
 
-* Trigger training when:
+To keep the model up-to-date and resilient to drift or stale data, implement automated retraining workflows:
 
-  * Accuracy drops
-  * Model age exceeds threshold
-  * More labeled data is available
-* Schedule via cron jobs or CI/CD pipeline
+- **Retraining Triggers**
+  - Conditions to initiate retraining:
+    - Drop in validation performance (e.g., F1-score or AUC)
+    - New labeled data becomes available
+    - Model age exceeds a defined time window
+  - Tools: [Evidently](https://evidentlyai.com/), custom performance monitors, Prometheus alerts.
+
+- **Data Pipeline Integration**
+  - Continuously collect and store inference data + feedback.
+  - Version incoming datasets and maintain training history.
+  - Tools: Airflow, DVC, Prefect, or plain cron + scripts.
+
+- **Scheduled Retraining Jobs**
+  - Use job schedulers or CI/CD pipelines to:
+    - Run `model_training.py` automatically (e.g., weekly)
+    - Compare new vs. old model metrics
+    - Redeploy if new model is better
+  - Tools: GitHub Actions, GitLab CI, Jenkins, cron jobs, Docker.
+
+- **Model Versioning & Deployment**
+  - Track model versions with performance metrics and training metadata.
+  - Serve new models using versioned APIs or containerized services.
+  - Roll back if new model underperforms.
+  - Tools: MLflow, Weights & Biases, DVC, Docker Hub, Kubernetes.
+
+
 
 ### 🔐 Security
 
