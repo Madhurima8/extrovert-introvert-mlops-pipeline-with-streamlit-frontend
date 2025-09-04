@@ -83,13 +83,13 @@ Test with sample payload like:
 
 ```json
 {
-  "Time_spent_Alone": "11.0",
+  "Time_spent_Alone": 11.0,
   "Stage_fear": "Yes",
-  "Social_event_attendance": "0.0",
-  "Going_outside": "2.0",
+  "Social_event_attendance": 0.0,
+  "Going_outside": 2.0,
   "Drained_after_socializing": "Yes",
-  "Friends_circle_size": "4.0",
-  "Post_frequency": "2.0"
+  "Friends_circle_size": 4.0,
+  "Post_frequency": 2.0
 }
 ```
 
@@ -117,7 +117,7 @@ docker build -t extrovert-mlops .
 docker run -p 8080:8080 extrovert-mlops
 ```
 
-Then access: [http://localhost:8080/docs](http://localhost:8080/docs)
+Then access: http://localhost:8080/docs
 
 ---
 
