@@ -77,7 +77,7 @@ This:
 uvicorn src.api:app --host 0.0.0.0 --port 8080
 ```
 
-Visit Swagger UI at: [http://127.0.0.1:8080/docs](http://127.0.0.1:8080/docs)
+Visit Swagger UI at: [http://127.0.0.1:8080/docs]
 
 Test with sample payload like:
 
@@ -114,10 +114,10 @@ docker build -t extrovert-mlops .
 ### Run Container
 
 ```bash
-docker run -p 8000:8000 extrovert-mlops
+docker run -p 8080:8080 extrovert-mlops
 ```
 
-Then access: [http://localhost:8000/docs](http://localhost:8000/docs)
+Then access: [http://localhost:8080/docs](http://localhost:8080/docs)
 
 ---
 
