@@ -77,7 +77,7 @@ This:
 uvicorn src.api:app --host 0.0.0.0 --port 8080
 ```
 
-Visit Swagger UI at: [http://127.0.0.1:8080/docs]
+Visit Swagger UI at: http://127.0.0.1:8080/docs
 
 Test with sample payload like:
 
