@@ -8,23 +8,27 @@ This repository implements a complete MLOps pipeline for a binary classification
 
 ```bash
 extrovert-mlops-pipeline/
-├── data/                          # Raw input dataset (.csv)
-├── logs/                          # Training and inference logs
-│   ├── train_eval_metrics.json    # Per-model training logs
-│   ├── train_eval_metrics_summary.csv
-│   └── inference_log.jsonl        # Inference requests logging
-├── models/                        # Trained model and metadata
-│   ├── classifier.joblib          # Final model
-│   └── model_meta.json            # Metadata like label map, input features
-├── src/                           # Source code
-│   ├── api.py                     # FastAPI app definition
-│   ├── model_training.py          # Training script (multi-model)
-│   ├── model_inference.py         # Inference logic and logging
-│   ├── schemas.py                 # Pydantic input validation schema
-│   └── simulate_batch_inference.py # Batch testing script
-├── Dockerfile                     # Docker build configuration
-├── requirements.txt               # Python dependencies
-└── README.md                      # You're here :)
+├── backend/
+│   ├── data/                          # Raw input dataset (.csv)
+│   ├── logs/                          # Training and inference logs
+│   ├── models/                        # Trained model and metadata
+│   ├── src/                           # Backend source code
+│   │   ├── api.py                     # FastAPI app definition
+│   │   ├── model_training.py          # Training script
+│   │   ├── model_inference.py         # Inference logic and logging
+│   │   ├── schemas.py                 # Pydantic input schema
+│   │   └── simulate_batch_inference.py # Batch test script
+│   ├── Dockerfile                     # Backend Docker build
+│   └── requirements.txt               # Backend Python dependencies
+│
+├── frontend/
+│   ├── streamlit_app.py               # Streamlit frontend app
+│   ├── Dockerfile                     # Frontend Docker build
+│   └── requirements.txt               # Frontend dependencies
+│
+├── docker-compose.yml                 # Multi-container orchestration
+└── README.md                          # You're here :)
+
 ```
 
 ---

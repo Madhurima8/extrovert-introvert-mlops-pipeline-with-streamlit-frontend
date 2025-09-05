@@ -13,17 +13,5 @@ def health():
 
 # Prediction endpoint
 @app.post("/predict")
-# def predict(payload: dict[str, Any]):
 def predict(payload: PersonalityFeatures):
-
-    # """
-    # Send JSON with keys matching your CSV feature columns.
-    # Example:
-    # {
-    #   "Social_Media_Usage": "Often",
-    #   "Likes_Parties": "Yes",
-    #   "Prefers_Solo_Activities": "No"
-    # }
-    # """
-    # return predict_with_metrics(payload)
     return predict_with_metrics(payload.dict())
