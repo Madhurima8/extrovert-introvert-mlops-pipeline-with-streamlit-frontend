@@ -104,7 +104,7 @@ streamlit run streamlit_app.py
 ```
 Open http://localhost:8501 to use the UI.
 
-### 4. 🧪 Simulate Batch Inference
+### 🧪 Simulate Batch Inference
 
 ```bash
 python src/simulate_batch_inference.py
@@ -116,16 +116,21 @@ Runs inference on 5 random samples and prints prediction output.
 
 ## 🐳 Docker Usage
 
-### Build Image
+### 🔀 Docker Compose (Backend + Frontend)
 
 ```bash
-docker build -t extrovert-mlops .
+docker-compose up --build
 ```
+FastAPI backend: http://localhost:8080/docs
+Streamlit frontend: http://localhost:8501
 
-### Run Container
+### 🐳 Backend Only
 
 ```bash
-docker run -p 8080:8080 extrovert-mlops
+cd backend
+docker build -t extrovert-backend .
+docker run -p 8080:8080 extrovert-backend
+
 ```
 
 Then access: http://localhost:8080/docs
