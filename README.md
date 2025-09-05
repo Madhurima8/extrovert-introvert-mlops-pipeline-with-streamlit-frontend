@@ -96,6 +96,13 @@ Test with sample payload like:
   "Post_frequency": 2.0
 }
 ```
+### 4. 💻 Run Streamlit Frontend (optional)
+
+```bash
+cd frontend
+streamlit run streamlit_app.py
+```
+Open http://localhost:8501 to use the UI.
 
 ### 4. 🧪 Simulate Batch Inference
 
