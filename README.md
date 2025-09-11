@@ -36,7 +36,7 @@ extrovert-mlops-pipeline/
 ## 🔍 Task Overview
 
 * **Goal**: Classify user personality as `extrovert` or `introvert`.
-* **Dataset**: Cleaned version of `personality_dataset.csv` with behavioral traits as features.
+* **Dataset**: `personality_dataset.csv` with behavioral traits as features.
 * **Problem Type**: Binary Classification
 * **Model Selection**: Trained and evaluated multiple models:
 
