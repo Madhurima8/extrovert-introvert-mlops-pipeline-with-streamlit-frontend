@@ -14,4 +14,4 @@ def health():
 # Prediction endpoint
 @app.post("/predict")
 def predict(payload: PersonalityFeatures):
-    return predict_with_metrics(payload.dict())
+    return predict_with_metrics(payload.model_dump())
