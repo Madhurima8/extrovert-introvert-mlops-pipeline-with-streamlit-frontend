@@ -36,5 +36,35 @@ jobs:
 
       - name: Build Docker images
         run: docker compose build
-        
-        
+
+      - name: Start containers
+        run: docker compose up -d
+
+      - name: Check backend health
+        run: |
+          for i in {1..10}; do
+            if curl --fail --silent http://localhost:8080/health; then
+              exit 0
+            fi
+            echo "Backend not ready yet - retrying..."
+            sleep 2
+          done
+          echo "Backend health check failed"
+          docker compose logs backend
+          exit 1
+      - name: Check frontend
+        run: |
+          for i in {1..10}; do
+            if curl --fail --silent http://localhost:8501 > /dev/null; then
+              exit 0
+            fi
+            echo "Frontend not ready yet - retrying..."
+            sleep 2
+          done
+          echo "Frontend health check failed"
+          docker compose logs frontend
+          exit 1
+
+      - name: Stop containers
+        if: always()
+        run: docker compose down

@@ -1,2 +1,3 @@
 streamlit==1.30.0
 requests==2.31.0  # for making POST requests to the FastAPI API
+pyarrow==15.0.2
